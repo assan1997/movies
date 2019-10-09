@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<% include ./partials/_header%>
+    <title>Movies</title>
+</head>
+<body>
+    <% include ./partials/_nav%>
+    <h1><%= title %></h1>
+    <form action="/movies"method="post">
+        <label for="movietitle">Titre du film</label>
+        <input type="text"name="movietitle"id="movietitle">
+        <label for="movieyear">Annee du film</label>
+        <input type="text"name="movieyear"id="movieyear">
+        <button type="submit">Ajouter</button>
+    </form>
+    <div class="french-movie">
+        <% for(movie of movies){%>
+            <div><%= movie.title%> : <%= movie.year%></div>
+        <%}%>
+    </div>
+    <% include ./partials/_scripts%>
+    <% include ./partials/_footer%>
+</body>
+</html>

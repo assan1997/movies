@@ -1,0 +1,44 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
+<script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit',addMovie)
+    function addMovie (event){
+        event.preventDefault();
+        
+        if(fetch){
+            fetch('/movies',{
+                method:'POST',
+                body:new FormData(form)
+            })
+            .then(checkStatus)
+            .catch((error)=>{
+                console.log('request failed',error);
+            })
+        }else{
+            //jquery
+        }
+
+       function checkStatus (response){
+            if(response.status >= 200 && response.status <300){
+                let newMovieDiv =document.createElement('div');
+                const movietitle = document.getElementById('movietitle').value;
+                const movieyear = document.getElementById('movieyear').value;
+
+                newMovieDiv.innerHTML = `${movietitle} : ${movieyear}`;
+
+                document.querySelector('.french-movie').appendChild(newMovieDiv);
+
+                form.reset()
+            }
+        }
+        
+    }
+</script>
